@@ -1,0 +1,38 @@
+
+<div class="container">
+  <form [formGroup]="form" class="m-5" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div *ngIf="form.controls.email.errors?.required" class="text-danger">email required</div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+      <div *ngIf="form.controls.password.errors?.required " class="text-danger">password required</div>
+      <div *ngIf="form.controls.password.errors?.minlength " class="text-danger">{{'you must type at least'+form.controls.password.errors?.minlength.requiredLength }}</div>
+      <div *ngIf="form.controls.password.errors?.maxlength " class="text-danger">{{'you must type at least'+form.controls.password.errors?.maxlength.requiredLength }}</div>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Password</label>
+      <input type="password" class="form-control" formControlName="repassword" id="confirmPassword" placeholder="Password">
+      <div *ngIf="form.controls.repassword.errors?.required " class="text-danger">password required</div>
+      <div *ngIf="form.controls.repassword.errors?.minlength " class="text-danger">{{'you must type at least'+form.controls.repassword.errors?.minlength.requiredLength }}</div>
+      <div *ngIf="form.controls.repassword.errors?.maxlength " class="text-danger">{{'you must type at least'+form.controls.repassword.errors?.maxlength.requiredLength }}</div>
+      <div *ngIf="form.controls.repassword.errors?.repass " class="text-danger">{{form.controls.repassword.errors?.repass}}</div>
+    </div>
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <div class="form-group">
+      <div *ngFor="let ad of form.controls.address['controls'];let i =index"  formArrayName="address">
+        <input type="text" [formControl]="ad"><button (click)="deleteAddress(i)" >delete</button>
+      </div>
+    </div>
+    <button (click)="handleClick()">Ok</button>
+    <button type="submit"  class="btn btn-primary">Submit {{form.valid?'string valid':'invalid'}}</button>
+  </form>
+
+</div>
